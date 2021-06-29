@@ -146,4 +146,15 @@ LIMIT 1;
 
 19.List the top three most common government forms.
 
+USE world;
+SELECT GovernmentForm , COUNT(GovernmentForm) AS occurence
+FROM country
+GROUP BY GovernmentForm
+ORDER BY occurence DESC
+LIMIT 3;
+
 20.How many countries have gained independence since records began?
+
+USE world;
+SELECT COUNT(IndepYear) FROM country
+WHERE IndepYear IS NOT NULL;
