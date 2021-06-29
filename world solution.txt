@@ -28,17 +28,54 @@ SELECT city.Name FROM city
 JOIN country ON city.ID = country.Capital
 WHERE country.Name = 'Spain';
 
-5.Using JOIN ... ON, list all the languages spoken in the Southeast Asia region.
+5.)Using JOIN ... ON, list all the languages spoken in the Southeast Asia region.
+long list I can't fit in here :)
 
-6.Using a single query, list 25 cities around the world that start with the letter F.
+USE world;
+SELECT Language FROM country
+JOIN countrylanguage ON country.Code = countrylanguage.CountryCode
+WHERE country.Region = 'Southeast Asia';
 
-7.Using COUNT and JOIN ... ON, get the number of cities in China.
+6.)Using a single query, list 25 cities around the world that start with the letter F.
 
-8.Using IS NOT NULL, ORDER BY, and LIMIT, which country has the lowest population? Discard non-zero populations.
+USE world;
+SELECT Name FROM city
+WHERE Name LIKE 'F%'
+LIMIT 25;
 
-9.Using aggregate functions, return the number of countries the database contains.
+7.)Using COUNT and JOIN ... ON, get the number of cities in China.
+363
 
-10.What are the top ten largest countries by area?
+USE world;
+SELECT COUNT(city.Name)
+FROM city
+JOIN country 
+ON city.CountryCode = country.Code
+WHERE CountryCode = 'CHN';
+
+8.)Using IS NOT NULL, ORDER BY, and LIMIT, which country has the lowest population? Discard non-zero populations.
+Pitcairn
+
+USE world;
+SELECT Name FROM country
+WHERE Population > 0
+AND Population IS NOT NULL
+ORDER BY Population ASC
+LIMIT 1;
+
+9.)Using aggregate functions, return the number of countries the database contains.
+239
+
+USE world;
+SELECT COUNT(Name)
+FROM country;
+
+10.)What are the top ten largest countries by area?
+
+USE world;
+SELECT Name FROM country
+ORDER BY SurfaceArea DESC
+LIMIT 10;
 
 11.List the five largest cities by population in Japan.
 
