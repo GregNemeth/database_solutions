@@ -116,9 +116,33 @@ LIMIT 10;
 
 16.List the names of, and number of languages spoken by, the top ten most multilingual countries.
 
+USE world;
+SELECT country.Name , COUNT(Language)
+FROM countrylanguage
+JOIN country ON countrylanguage.CountryCode = country.Code
+GROUP BY CountryCode
+ORDER BY COUNT(Language) DESC
+LIMIT 10;
+
+
 17.List every country where over 50% of its population can speak German.
 
+USE world;
+SELECT Name 
+FROM countrylanguage
+JOIN country ON countrylanguage.CountryCode = country.Code
+WHERE countrylanguage.Language = 'German'
+AND countrylanguage.Percentage > 50
+;
+
 18.Which country has the worst life expectancy? Discard zero or null values.
+
+USE world;
+SELECT Name FROM country
+WHERE LifeExpectancy IS NOT NULL
+AND LifeExpectancy != 0
+ORDER BY LifeExpectancy ASC
+LIMIT 1;
 
 19.List the top three most common government forms.
 
