@@ -165,20 +165,49 @@
 
 21. **List all the movies that Fred Costner has appeared in.**
     ```sql
+    USE sakila;
+    SELECT title FROM film
+    JOIN film_actor ON
+    film.film_id = film_actor.film_id
+    JOIN actor ON
+    film_actor.actor_id = actor.actor_id
+    WHERE first_name = 'Fred'
+    AND last_name = 'Costner';
     ```
 
 22. **How many distinct countries are there?**
     ```sql
+    USE sakila;
+    SELECT COUNT(DISTINCT(country)) FROM country;
     ```
 
 23. **List the name of every language in reverse-alphabetical order.**
     ```sql
+    USE sakila;
+    SELECT * FROM language
+    ORDER BY name DESC;
     ```
 
 24. **List the full names of every actor whose surname ends with '-son' in alphabetical order by their forename.**
     ```sql
+    USE sakila;
+    SELECT CONCAT(first_name, ' ', last_name) as full_name
+    FROM actor
+    WHERE last_name LIKE '%son'
+    ORDER BY first_name ASC;
     ```
 
 25. **Which category contains the most films?**
     ```sql
+    USE sakila;
+    SELECT category.name
+    FROM film_category
+    JOIN category ON
+    film_category.category_id = category.category_id
+    WHERE film_category.category_id = (
+     SELECT category_id FROM category WHERE category_id = film_category.category_id
+    )
+    GROUP BY film_category.category_id
+    ORDER BY COUNT(film_category.category_id) DESC
+    LIMIT 1;
     ```
