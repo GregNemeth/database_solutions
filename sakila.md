@@ -132,18 +132,35 @@
 
 17. **List all movies featuring a robot.**
     ```sql
+    USE sakila;
+    SELECT title FROM film
+    WHERE description LIKE "%robot%";
     ```
 
 18. **How many movies were released in 2010?**
     ```sql
+    USE sakila;
+    SELECT COUNT(title) FROM film
+    WHERE release_year = 2010;
     ```
 
 19. **Find the titles of all the horror movies.**
     ```sql
+    USE sakila;
+    SELECT title FROM film
+    JOIN film_category ON
+    film.film_id = film_category.film_id
+    JOIN category ON
+    film_category.category_id = category.category_id
+    WHERE category.name = 'Horror';
     ```
 
 20. **List the full name of the staff member with the ID of 2.**
     ```sql
+    USE sakila;
+    SELECT CONCAT(first_name, " ", last_name) AS full_name
+    FROM staff
+    WHERE staff_id = 2;
     ```
 
 21. **List all the movies that Fred Costner has appeared in.**
