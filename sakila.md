@@ -74,14 +74,35 @@
 
 11. **Using HAVING, reverse-alphabetically list the last names that are not repeated.**
     ```sql
+    USE sakila;
+    SELECT last_name FROM actor
+    GROUP BY last_name
+    HAVING COUNT(last_name) = 1
+    ORDER BY last_name DESC;
     ```
 
 12. **Using HAVING, list the last names that appear more than once, from highest to lowest frequency.**
     ```sql
+    USE sakila;
+    SELECT last_name, COUNT(last_name)as frequency FROM actor
+    GROUP BY last_name
+    HAVING COUNT(last_name) > 1
+    ORDER BY COUNT(last_name) DESC
+;
     ```
 
 13. **Which actor has appeared in the most films?**
     ```sql
+    USE sakila;
+    SELECT COUNT(film_actor.actor_id), first_name, last_name
+    FROM film_actor
+    JOIN actor ON film_actor.actor_id = actor.actor_id
+    WHERE film_actor.actor_id = (
+     SELECT actor_id FROM actor WHERE actor_id = film_actor.actor_id
+    )
+    GROUP BY film_actor.actor_id
+    ORDER BY COUNT(film_actor.actor_id) DESC
+    LIMIT 1;
     ```
 
 14. **When is 'Academy Dinosaur' due?**
@@ -90,10 +111,23 @@
 
 15. **What is the average runtime of all films?**
     ```sql
+    USE sakila;
+    SELECT AVG(length) AS average_length
+    FROM  film
+    ;
     ```
 
 16. **List the average runtime for every film category.**
     ```sql
+    USE sakila;
+    SELECT ANY_VALUE(category.name) as category_name,
+    ANY_VALUE(AVG(film.length)) AS avg_length
+    FROM category
+    JOIN film_category
+    ON category.category_id = film_category.category_id
+    JOIN film
+    ON film_category.film_id = film.film_id
+    GROUP BY category.name;
     ```
 
 17. **List all movies featuring a robot.**
