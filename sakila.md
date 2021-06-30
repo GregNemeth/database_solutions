@@ -88,7 +88,7 @@
     GROUP BY last_name
     HAVING COUNT(last_name) > 1
     ORDER BY COUNT(last_name) DESC
-;
+    ;
     ```
 
 13. **Which actor has appeared in the most films?**
