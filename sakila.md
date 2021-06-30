@@ -37,22 +37,39 @@
 
 6. **Find every R-rated movie.**
     ```sql
+    USE sakila;
+    SELECT title FROM film
+    WHERE rating = 'R';
     ```
 
 7. **Find every non-R-rated movie.**
     ```sql
+    USE sakila;
+    SELECT title FROM film
+    WHERE rating != 'R';
     ```
 
 8. **Find the ten shortest movies.**
     ```sql
+    USE sakila;
+    SELECT title FROM film
+    ORDER BY length ASC
+    LIMIT 10;
     ```
 
 9. **Find the movies with the longest runtime, without using LIMIT.**
     ```sql
+    USE sakila;
+    SELECT title FROM  film
+    WHERE length = (
+        SELECT MAX(length) FROM film);
     ```
 
 10. **Find all movies that have deleted scenes.**
     ```sql
+    USE sakila;
+    SELECT * FROM film
+    WHERE special_features LIKE "%Deleted Scenes%";
     ```
 
 11. **Using HAVING, reverse-alphabetically list the last names that are not repeated.**
